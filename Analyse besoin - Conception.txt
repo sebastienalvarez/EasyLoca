@@ -1,0 +1,346 @@
+Application EasyLoca :
+
+Technologie à utiliser :
+Xamarin.Forms pour avoir une application Android et éventuellement une application Windows 10 (UWP)
+
+Objectifs :
+Automatiser la gestion des locations pour éditer automatiquement les documents (contrat de location, avis d'échéance, quittance...) et les envoyer par email en 1 clic.
+Suivre sur un tableau de bord l'ensemble de ses locations avec des indicateurs.
+Simplicité de l'application avec une saisie minimum de données (aller à l'essentiel). 
+
+Fonctionnalités de l'application :
+Gestion des données du bailleur :
+- saisie et édition données du bailleur (Prénom, Nom, Adresse, Téléphone fixe, Téléphone portable, Email et IBAN)
+- enregistrer une signature scannée
+- calculer montant à déclarer pour les impots
+
+Gestion des propriétés :
+- créer et éditer un nouvelle propriété (Nom, Adresse, Photo représentative, prix d'achat)
+- supprimer une propriété
+- éditer l'assurance propriétaire (date début, date fin, montant annuel)
+- archiver un document d'assurance (optionnel)
+- télécharger un document d'assurance
+- ajouter et éditer taxe foncière année courante (montant)
+- éditer bilan énergétique (date début, date fin)
+- archiver un document bilan énergétique
+- télécharger un document bilan énergétique
+- ajouter et éditer les appels de fonds (date début, date fin, montant)
+- archiver un document appel de fond
+- télécharger un document appel de fond
+- afficher calcul du rendement (prenant en compte prix d'achat, loyers perçus, taxe foncière, assurances, et appels de fonds)
+
+Gestion des locations :
+- créer une nouvelle location
+- archiver une location
+- supprimer une location
+- afficher tableau de bord des locations
+- visualiser une location
+
+Gestion d'une location :
+- créer une location : 
+	- saisie et édition données du locataire (Prénom, Nom, Adresse, Téléphone fixe, Téléphone portable et Email)
+	- saisie et édition données du garant (Prénom, Nom, Adresse, Téléphone fixe, Téléphone portable, Email et IBAN)
+	- saisie du type de location : vide ou meublé
+	- saisie du montant du dépôt de garantie
+	- édition du contrat de location
+	- envoi email du contrat de location
+	- définir une date par défaut de paiement pour les quittances
+- gérer une location :
+	- archiver le contrat de location signé (word, PDF, image)
+	- télécharger le contrat de location (par défaut le contrat signé, sinon contrat non signé)
+	- envoyer contrat de location par email
+	- éditer données locataire,
+	- éditer données garants
+	- éditer la date par défaut de paiement pour les quittances
+	- envoyer l'avis d'échéance du mois par email
+	- envoyer un rappel de paiement de l'avis d'échéance
+	- valider le paiement d'un loyer (date et montant du loyer)
+	- télécharger la quittance du mois (date et montant loyer par défaut ou si paiement validé date saisie et montant saisi)
+	- envoyer la quittance du mois par email (date et montant loyer par défaut ou si paiement validé date saisie et montant saisi)
+	- télécharger des quittances passées
+	- envoyer des quittances passées par email
+	- éditer couverture assurance : date début et date fin
+	- archiver une assurance
+	- envoyer un email de demande de justification d'assurance
+	- régulariser les charges
+	- envoyer un email de notification de la régularisation des charges
+
+
+Tableau de bord :
+Affichage des locations courantes
+Nom de la location
+Nom locataire
+Icone pour indiquer si assurance locataire valide
+Icone pour indiquer si assurance bailleur valide
+Icone pour indiquer si bilan énergétique à jour
+Icone pour indiquer Paiement à jour ou si solde négatif
+Paiement validé (vert)
+Paiement supposé ok (orange)
+Rendement calculé
+
+Notification :
+Saisir paiement d'un loyer
+Editer assurance propriétaire
+Editer Bilan énergétique
+
+Modèle de données :
+Objet Personne :
+- Prénom
+- Nom
+- Adresse
+- Téléphone fixe
+- Téléphone portable
+- Email
+- IBAN
+
+Objet Propriété :
+- Nom
+- Adresse
+- Photo représentative
+- Photos (collection de photos)
+- Taxes foncières (collection dictionnaire année/montant)
+- Assurance archivée
+- Date fin couverture
+- Prix assurance (collection dictionnaire année/montant)
+
+Objet Location :
+- Propriété (Propriété),
+- Locataire (Personne),
+- Garant (Personne),
+- type location : meublé ou vide,
+- Template contrat,
+- Template avis d'échéance,
+- Template quittance,
+- date début contrat,
+- date cloture contrat,
+- date envoi automatique avis d'échéance,
+- contrat de location non signé,
+- contrat de location signé
+- Loyer hors charge,
+- Provision pour charges,
+- Taxe d'ordures ménagères
+- Date max du paiement des loyers.
+
+
+Objet Loyer :
+- Mois,
+- Année,
+- Montant,
+- Montant payé,
+- Date paiement
+
+
+INTERFACE :
+Page Bailleur :
+Si le bailleur n'a pas été crée :
+Bouton "Créer Bailleur"
+Sinon :
+Prénom "zone de saisie" (obligatoire)
+Nom	"zone de saisie" (obligatoire)
+
+Bouton "Editer"
+Bouton "Calculer montant à déclarer pour les impôts"
+
+Si appui sur le bouton "Editer" :
+Prénom "zone de saisie" (obligatoire)
+Nom	"zone de saisie" (obligatoire)
+Adresse1 "zone de saisie" (obligatoire)
+Adresse2 "zone de saisie" (optionnel)
+Code postal "zone de saisie" (obligatoire)
+Ville "zone de saisie"  (obligatoire)
+Téléphone fixe "zone de saisie" (optionnel)
+Téléphone portable "zone de saisie" (obligatoire)
+Email "zone de saisie" (obligatoire)
+IBAN "zone de saisie" (optionnel)
+Signature numérisée (affichée en vert si fichier ok, sinon en rouge)
+Bouton "Enregistrer la signature numérisée" (uniquement jpg et png)
+Bouton Valider
+
+Si appui sur le bouton "Calculer montant à déclarer pour les impôts"
+Affichage :
+Montant à déclarer : xxx
+Dont :
+Propriété yyy : xxxx
+Propriété yyy : xxxx
+...
+
+Page Propriétés :
+La page Propriétés ne peut être affichée que si le bailleur a été défini
+Si aucune propriété a été crée :
+Bouton "Créer une propriété"
+Sinon (tableau de bord des propriétés) :
+Pour chaque propriété :
+Nom de la propriété
+Photo représentative
+Icone pour indiquer si assurance bailleur valide
+Icone pour indiquer si bilan énergétique à jour
+Loyer perçu
+Rendement calculé
+Bouton "Créer une propriété"
+
+Si appui sur le bouton "Créer une propriété" :
+Nom	"zone de saisie" (obligatoire)
+Adresse1 "zone de saisie" (obligatoire)
+Adresse2 "zone de saisie" (optionnel)
+Code postal "zone de saisie" (obligatoire)
+Ville "zone de saisie"  (obligatoire)
+Bouton Définir une photo représentative
+Bouton Valider
+
+Si appui sur la zone d'une propriété :
+Nom	"zone de saisie" (obligatoire)
+Rendement calculé (non éditable)
+Adresse1 "zone de saisie" (obligatoire)
+Adresse2 "zone de saisie" (optionnel)
+Code postal "zone de saisie" (obligatoire)
+Ville "zone de saisie"  (obligatoire)
+Afficher photo représentative
+Bouton Définir une photo représentative
+Date fin couverture assurance
+Prix annuel de l'assurance
+Bouton Enregistrer l'assurance
+Bouton Télécharger l'assurance
+Montant Taxe foncière
+Date fin validité bilan énergétique
+Bouton Enregistrer le bilan énergétique
+Bouton Valider
+
+Page Locations :
+La page Locations ne peut être affichée que si au moins une Propriété a été définie
+Si aucune location a été crée :
+Bouton "Créer une location"
+Sinon (tableau de bord des locations) :
+Pour chaque location :
+Nom de la location
+Nom locataire
+Icone pour indiquer si assurance locataire valide
+Icone pour indiquer Paiement à jour ou si solde négatif
+Paiement validé (vert)
+Paiement supposé ok (orange)
+Bouton "Créer une location"
+
+Si appui sur le bouton "Créer une location" :
+Affichage des étapes en icone
+1 - créer locataire
+2 - créer garant (optionnel)
+3 - paramétrage location
+4 - Editer contrat de location
+
+Etape 1 : Créer locataire :
+Prénom "zone de saisie" (obligatoire)
+Nom	"zone de saisie" (obligatoire)
+Adresse1 "zone de saisie" (obligatoire)
+Adresse2 "zone de saisie" (optionnel)
+Code postal "zone de saisie" (obligatoire)
+Ville "zone de saisie"  (obligatoire)
+Téléphone fixe "zone de saisie" (optionnel)
+Téléphone portable "zone de saisie" (obligatoire)
+Email "zone de saisie" (obligatoire)
+Bouton Valider
+
+Etape 2 : Créer garant :
+Prénom "zone de saisie" (obligatoire)
+Nom	"zone de saisie" (obligatoire)
+Adresse1 "zone de saisie" (obligatoire)
+Adresse2 "zone de saisie" (optionnel)
+Code postal "zone de saisie" (obligatoire)
+Ville "zone de saisie"  (obligatoire)
+Téléphone fixe "zone de saisie" (optionnel)
+Téléphone portable "zone de saisie" (obligatoire)
+Email "zone de saisie" (obligatoire)
+Bouton Valider
+
+Etape 3 : Définir la location :
+Montant du dépôt de garantie "zone de saisie" (obligatoire)
+Date d'envoi automatique des avis d'échéance (optionnel)
+Date par défaut de paiement pour l'édition des quittances (obligatoire)
+Date d'envoi automatique des quittance (optionnel)
+Bouton Valider
+
+Etape 4 - Editer le contrat de location :
+Bouton Télécharger le contrat de location
+Bouton envoyer le contrat de location au locataire
+
+
+Si appui longuement sur la zone d'une location :
+affichage d'un menu contextuel avec comme choix :
+- gérer la location
+- cloturer la location
+- supprimer la location
+Si appui court sur la zone d'une location :
+Zones d'actions sur la location :
+Zone 1 : Avis d'échéance
+Zone 2 : Quittance
+Zone 3 : Editer les dates
+Zone 4 : Régulariser les charges
+Zone 5 : Assurance locataire
+Zone 6 : Editer le locataire
+Zone 7 : contrat de location 
+Zone 8 : Editer le garant
+Zone 9 : Cloturer/supprimer la location
+
+Page Zone 1 : Avis d'échéance
+Page Zone 2 : Quittance
+Page Zone 3 : Editer les dates
+Page Zone 4 : Régulariser les charges
+Page Zone 5 : Assurance locataire
+
+Page Zone 6 : Editer le locataire
+Prénom "zone de saisie" (obligatoire)
+Nom	"zone de saisie" (obligatoire)
+Adresse1 "zone de saisie" (obligatoire)
+Adresse2 "zone de saisie" (optionnel)
+Code postal "zone de saisie" (obligatoire)
+Ville "zone de saisie"  (obligatoire)
+Téléphone fixe "zone de saisie" (optionnel)
+Téléphone portable "zone de saisie" (obligatoire)
+Email "zone de saisie" (obligatoire)
+Bouton Valider
+
+Page Zone 7 : contrat de location
+ 
+Page Zone 8 : Editer le garant
+Prénom "zone de saisie" (obligatoire)
+Nom	"zone de saisie" (obligatoire)
+Adresse1 "zone de saisie" (obligatoire)
+Adresse2 "zone de saisie" (optionnel)
+Code postal "zone de saisie" (obligatoire)
+Ville "zone de saisie"  (obligatoire)
+Téléphone fixe "zone de saisie" (optionnel)
+Téléphone portable "zone de saisie" (obligatoire)
+Email "zone de saisie" (obligatoire)
+Bouton Valider
+
+Page Zone 9 : Cloturer/supprimer la location
+Bouton "Cloturer la location"
+Bouton "Supprimer la location"
+
+Gestion d'une location :
+- gérer une location :
+	- archiver le contrat de location signé (word, PDF, image)
+	- télécharger le contrat de location (par défaut le contrat signé, sinon contrat non signé)
+	- envoyer contrat de location par email
+	- éditer données locataire,
+	- éditer données garants
+	- éditer la date d'envoi automatique des avis d'échéance
+	- éditer la date par défaut de paiement pour les quittances
+	- éditer la date d'envoi automatique des quittances
+	- envoyer l'avis d'échéance du mois par email
+	- envoyer un rappel de paiement de l'avis d'échéance
+	- valider le paiement d'un loyer (date et montant du loyer)
+	- télécharger la quittance du mois (date et montant loyer par défaut ou si paiement validé date saisie et montant saisi)
+	- envoyer la quittance du mois par email (date et montant loyer par défaut ou si paiement validé date saisie et montant saisi)
+	- télécharger des quittances passées
+	- envoyer des quittances passées par email
+	- éditer couverture assurance : date début et date fin
+	- archiver une assurance
+	- envoyer un email de demande de justification d'assurance
+	- régulariser les charges
+	- envoyer un email de notification de la régularisation des charges
+
+Pour pouvoir utiliser un email, il faut :
+- adresse email
+- mot de passe
+- adresse serveur smtp
+- numéro du port
+
